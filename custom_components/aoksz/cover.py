@@ -6,6 +6,7 @@ from homeassistant.core import callback
 from homeassistant.components.cover import CoverEntity, CoverEntityDescription, CoverDeviceClass, CoverEntityFeature, ENTITY_ID_FORMAT
 from homeassistant.helpers.entity import async_generate_entity_id, DeviceInfo
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, CoordinatorEntity
+from homeassistant.const import ConfigEntryState
 from .const import *
 import math
 
@@ -15,8 +16,13 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     coordinator = hass.data[DOMAIN][config_entry.entry_id]['coord']
     client = hass.data[DOMAIN][config_entry.entry_id]['client']
 
-    # 确保协调器已初始化
-    await coordinator.async_config_entry_first_refresh()
+    # 只有在首次设置时才需要强制刷新
+    if config_entry.state == ConfigEntryState.SETUP_IN_PROGRESS:
+        await coordinator.async_config_entry_first_refresh()
+    else:
+        # 确保协调器已初始化（可选）
+        if not coordinator.last_update_success:
+            await coordinator.async_request_refresh()
 
     # 确保update_interval类型正确
     if not isinstance(coordinator.update_interval, timedelta):
