@@ -6,7 +6,7 @@ from homeassistant.core import callback
 from homeassistant.components.cover import CoverEntity, CoverEntityDescription, CoverDeviceClass, CoverEntityFeature, ENTITY_ID_FORMAT
 from homeassistant.helpers.entity import async_generate_entity_id, DeviceInfo
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, CoordinatorEntity
-from homeassistant.const import ConfigEntryState
+from homeassistant.config_entries import ConfigEntryState
 from .const import *
 import math
 
