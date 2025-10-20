@@ -9,6 +9,8 @@ from homeassistant.const import (
     Platform,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryNotReady
+
 from .const import DOMAIN, CONF_HOST, CONF_PORT, CONF_DEVICE_ID, CONF_SCAN_INTERVAL
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, CoordinatorEntity
 from homeassistant.helpers.entity import DeviceInfo
@@ -244,6 +246,17 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry):
         'client': client,
         'coord': coord
     }
+
+    # 尝试建立初始连接并验证配置
+    try:
+        if not client.connected:
+            await client.connect()
+
+        # 等待第一次数据更新以确认设备可用
+        await coord.async_config_entry_first_refresh()
+    except Exception as ex:
+        # 在调用 async_forward_entry_setups 之前抛出 ConfigEntryNotReady
+        raise ConfigEntryNotReady(f"Failed to initialize AOK device: {ex}") from ex
 
     await hass.config_entries.async_forward_entry_setups(config_entry, [Platform.COVER])
 
