@@ -1,0 +1,36 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "AOK 配置",
+        "description": "输入 AOK 窗帘控制器连接信息",
+        "data": {
+          "host": "IP 地址",
+          "port": "端口",
+          "device_id": "设备 ID（组号,通道掩码;...）",
+          "scan_interval": "扫描间隔（秒）"
+        }
+      },
+      "reconfigure": {
+        "title": "重新配置 AOK",
+        "description": "更新连接参数和设备映射",
+        "data": {
+          "host": "IP 地址",
+          "port": "端口",
+          "device_id": "设备 ID（组号,通道掩码;...）",
+          "scan_interval": "扫描间隔（秒）"
+        }
+      }
+    },
+    "abort": {
+      "already_in_progress": "配置流程正在进行中。",
+      "already_configured": "该设备已配置。"
+    },
+    "error": {
+      "cannot_connect": "无法连接到 AOK 设备。",
+      "modbus_error": "通信错误。",
+      "unknown": "发生未知错误。"
+    }
+  }
+}
