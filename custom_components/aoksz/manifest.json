@@ -1,13 +1,13 @@
 {
+  "domain": "aoksz",
+  "name": "AOK",
   "codeowners": ["@magicbear"],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/magicbear/hass-aoksz",
-  "domain": "aoksz",
   "integration_type": "device",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/magicbear/hass-aoksz/issues",
-  "name": "AOK",
   "requirements": [],
   "version": "1.1.0"
 }
