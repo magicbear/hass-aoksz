@@ -213,6 +213,7 @@ class AOKDataCoordinator(DataUpdateCoordinator):
                 raise Exception("Connection lost")
 
             groups = {group: 0 for group, q_channel_id in self.device_lists}
+            timeout_devices: list[str] = []
 
             for group, q_channel_id in self.device_lists:
                 channel_id = int(math.log(q_channel_id, 2)) + 1
@@ -223,8 +224,15 @@ class AOKDataCoordinator(DataUpdateCoordinator):
                     self.data['%02d-00' % group].update(self.data[key])
                 except asyncio.exceptions.TimeoutError:
                     self.data[key] = None
-                    _LOGGER.warning(f"Query device {key} timeout")
-                    pass
+                    timeout_devices.append(key)
+
+            if timeout_devices:
+                _LOGGER.warning(
+                    "Query device timeout (%d/%d): %s",
+                    len(timeout_devices),
+                    len(self.device_lists),
+                    ", ".join(timeout_devices),
+                )
 
             for group in groups:
                 self.data['%02d-00' % group]['flags'] = groups[group]
