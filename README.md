@@ -22,7 +22,7 @@ HACS
 
 2. 在自定义仓库对话框中输入以下信息 In custom repository dialog enter ：
 
-仓库地址：`https://github.com/magicbear/aoksz_hacs`
+仓库地址：`https://github.com/magicbear/hass-aoksz`
 
 类别选择：`集成` Category: `Integration`
 

@@ -5,8 +5,8 @@
   "config_flow": true,
   "requirements": [],
   "dependencies": [],
-  "documentation": "https://github.com/magicbear/aok_hacs",
-  "issue_tracker": "https://github.com/magicbear/aok_hacs/issues",
+  "documentation": "https://github.com/magicbear/hass-aoksz",
+  "issue_tracker": "https://github.com/magicbear/hass-aoksz/issues",
   "codeowners": ["@magicbear"],
   "iot_class": "local_polling"
 }
